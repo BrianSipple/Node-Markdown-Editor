@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{{appTitle}}</title>
+        <meta name="description" content="neFARious">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link rel="stylesheet" href="/public/styles/normalize.css">
+        <link rel="stylesheet" href="/public/styles/main.css">
+
+        <script src="/public/vendor/modernizer/modernizr.js"></script>
+
+    </head>
+    <body>
+        <div class="main-view-container">
+
+            {{> core/navMenu }}
+
+
+            {{{body}}}
+
+            {{> core/footer }}
+
+        </div>
+    </body>
+</html>

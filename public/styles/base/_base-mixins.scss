@@ -1,0 +1,98 @@
+@mixin BoxShadowHelper($z-depth: 1) {
+
+    @if $z-depth == 1 {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+        0 1px 2px rgba(0, 0, 0, 0.24);
+    } @else if $z-depth == 2 {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
+        0 3px 6px rgba(0, 0, 0, 0.23);
+    } @else if $z-depth == 3 {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+        0 6px 6px rgba(0, 0, 0, 0.23);
+    } @else if $z-depth == 4 {
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22);
+    } @else if $z-depth >= 5 {
+        box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30),
+        0 15px 12px rgba(0, 0, 0, 0.22);
+    } @else {
+        /* Apply level 1 styles as default */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+        0 1px 2px rgba(0, 0, 0, 0.24);
+    }
+}
+
+/* ----------------------------------------------------------------------------------------------------
+ * Breakpoint maps -- referecened by mixins that
+ * dynamically create media queries
+ * ----------------------------------------------------------------------------------------------------*/
+$map__breakpoint-sizes: (
+    small: 480px,
+    medium: 640px,
+    large: 1024px,
+    x-large: 1200px
+);
+
+/* ----------------------------------------------------------------------------------------------------
+ * Maps for use in our font-size mixin
+ * Keys are the breakpoints, font-sizes (occassionally with line heights) are the corresponding values
+ * ---------------------------------------------------------------------------------------------------- */
+$map__font-sizes__p: (
+    null: (0.9375em, 1.3),
+    small: 1em,
+    medium: (1.0625em, 1.4),
+    900px: 1.125em,
+    large: (1.1875em, 1.45),
+    1440px: 1.25em
+);
+
+$map__font-size__h1: (
+    null: 1.75em,
+    small: 1.9375em,
+    medium: 2.0625em,
+    large: 2.25em
+);
+
+
+/**
+ * @param $fs-map -- key-value pair with size variables or literals as keys,
+ * and a value consisting of either a font-size, or a (font-size, line-height) list
+ */
+@mixin FontSize($fs-map, $breakpoint-sizes: $map__breakpoint-sizes) {
+    @each $breakpoint-size, $font-size in $fs-map {
+        @if $breakpoint-size == null {
+            @include MakeFontSize($font-size);
+        } @else {
+            /* If $font-size is a key that exists in
+             * $breakpoint-sizes, use the value to
+             * create a media query using the breakpoint */
+            @if map_has_key($breakpoint-sizes, $breakpoint-size) {
+                $breakpoint-size: map_get($breakpoint-sizes, $breakpoint-size);
+            }
+            /* If the $font-size is NOT in the $breakpoint-sizes map,
+             * we assume it's a literal value. This way, each map can mix and match
+             * keys and values as needed
+             */
+            @media screen and (min-width: $breakpoint-size) {
+                @include MakeFontSize($font-size);
+            }
+        }
+    }
+}
+
+
+/* Utility function for mixin font-size */
+@mixin MakeFontSize($font-size) {
+    @if (type_of($font-size) == 'list') {
+        // include both font-size and line-height
+        font-size: nth($font-size, 1);
+        @if (length($font-size) > 1) {
+            line-height: nth($font-size, 2);
+        }
+    }
+    @else {
+        font-size: $font-size;
+    }
+}
+
+/* ---------------------------------------------------------------------------------------------------- */

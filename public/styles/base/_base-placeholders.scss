@@ -1,0 +1,28 @@
+%button {
+    height: $button__height;
+    width: $button__width;
+    padding: 0.3em 0.8em;
+    border: 1px solid $button__color;
+    background-color: $button__color;
+    background-image: linear-gradient(
+            hsla(0, 0%, 100%, .2),
+            transparent
+    );
+    border-radius: .2em;
+    box-shadow: 0 .05em .25em hsla(0, 0%, 0%, 0.5);
+    color: hsla(0, 100%, 100%, 1);
+    text-shadow: 0 -.05em .05em hsla(0, 0%, 0%, 0.5);
+    font-size: 1.25em;
+    line-height: 1.5em;
+}
+
+%button__fab {
+    width: $button-fab__width;
+    height: $button-fab__height;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    background-color: $button__color;
+    box-shadow: 0 0.5em .25em hsla(0, 0%, 0%, 0.5);
+    font-size: 1.25em;
+}
