@@ -1,0 +1,22 @@
+{
+  "name": "node-markdown",
+  "version": "1.0.0",
+  "description": "Realtime Markdown Viewer and Editor",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrianSipple/Node-Markdown-Editor.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Brian Sipple <@Brian_Sipple>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BrianSipple/Node-Markdown-Editor/issues"
+  },
+  "homepage": "https://github.com/BrianSipple/Node-Markdown-Editor#readme"
+}
