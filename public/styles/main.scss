@@ -8,4 +8,37 @@
         border-bottom: 1px solid hsla(0, 0%, 91%, 1);
         margin-bottom: 3.125em;
     }
+
+    .pad-panel-container {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+    }
+
+    .pad-panel {
+        height: 100%;
+        flex: 1;
+        overflow: auto;
+
+        &[class$="--editor"] {
+        }
+
+        &[class$="--preview"] {
+            border-left: 1px solid black;
+        }
+    }
+
+    .edit-text {
+        font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+        resize: none;  /* no messing with our textarea elem size */
+        border: none;
+        outline: none;
+        box-shadow: none;
+    }
+
+    .preview-text {
+
+    }
 }
+
+

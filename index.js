@@ -70,7 +70,8 @@ app.use(methodOverride());              // simulate DELETE and PUT
 app.use(favicon(__dirname + '/public/img/favicon.ico'));
 
 
-app.use(express.static(__dirname + '/public'));
+//app.use(express.static(__dirname + '/public'));
+app.use('/public', express.static('public/'));   // serve static files from the public directory
 
 // Routes!
 app.get('/', function (req, res) {
