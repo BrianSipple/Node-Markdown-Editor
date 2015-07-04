@@ -57,20 +57,24 @@
      */
     function initShareJS () {
 
-        //// TODO: Uncomment for only enabling realtime functoinality if we're not on the homepath
-        //if (document.location.pathname.length > 1) {
-        //
-        //    var documentName = document.location.pathname.substring(1);
-        //
-        //    sharejs.open(documentName, 'text', function (err, doc) {
-        //        doc.attach_textarea(editTextElem);
-        //        convertTextAreaToMarkdown();
-        //    });
-        //}
-        sharejs.open('home', 'text', function (err, doc) {
-            doc.attach_textarea(editTextElem);
-            convertTextAreaToMarkdown();
-        });
+        //------------- Use this block for resting realtime updates to paths not matching the base ------//
+        if (document.location.pathname.length > 1) {
+
+            var documentName = document.location.pathname.substring(1);
+
+            sharejs.open(documentName, 'text', function (err, doc) {
+                doc.attach_textarea(editTextElem);
+                convertTextAreaToMarkdown();
+            });
+        }
+        //------------------------------------------------------------------------------------------------//
+
+        // --------------------- Use this block for enabling updates on every path -----------------------//
+        //sharejs.open('home', 'text', function (err, doc) {
+        //    doc.attach_textarea(editTextElem);
+        //    convertTextAreaToMarkdown();
+        //});
+        //-------------------------------------------------------------------------------------------------//
     }
 
     function initChangeChecking () {
