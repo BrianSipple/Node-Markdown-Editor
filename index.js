@@ -116,7 +116,7 @@ function createShareInstance(serverImpl) {
         redisClient = createRedisInstance(),
         shareJS = require('share'),
         shareJSOpts = { db: { type: 'redis', client: redisClient} };
-    
+
     shareJS.server.attach(serverImpl, shareJSOpts);
 }
 
