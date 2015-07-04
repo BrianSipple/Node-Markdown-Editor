@@ -32,7 +32,6 @@ app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 
 
-
 // Middleware to expose the app's shared templates to the client-side of the app
 // for pages which need them.
 function exposeTemplate(req, res, next) {
@@ -83,16 +82,41 @@ app.get('/(:id)', function (req, res) {
     res.render('pad', {appTitle: appTitle});
 });
 
+
+/**
+ * Create a Redis db instance that is appropriate for the current environment
+ * By extracting the port, hostname, and authentication string from REDISTOGO_URL
+ */
+function createRedisInstance () {
+
+    var redisClient;
+
+    // setup redis for the appropriate environment
+    if (process.env.REDISTOGO_URL) {
+        // create a redistogo connection for production
+        var redisToGo = require('url').parse(process.env.REDISTOGO_URL);
+        redisClient = require('redis').createClient(redisToGo.port, redisToGo.hostname);
+        redisClient.auth(redisToGo.auth.split(':')[1]);  // split up the username and password... and then use the password
+    } else {
+        redisClient = require('redis').createClient();
+    }
+    return redisClient;
+}
+
+
+
 /**
  * Attach our backend server impelmentation to
  * a shareJS shareJS instance
  * @param serverImpl -- our backend server implementation
  */
 function createShareInstance(serverImpl) {
-    var shareJS = require('share'),
-        shareJSOpts = { db: { type: 'redis'} };
-    require('redis');
 
+    var
+        redisClient = createRedisInstance(),
+        shareJS = require('share'),
+        shareJSOpts = { db: { type: 'redis', client: redisClient} };
+    
     shareJS.server.attach(serverImpl, shareJSOpts);
 }
 
