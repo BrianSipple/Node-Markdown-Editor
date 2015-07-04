@@ -1,26 +1,32 @@
 .navbar {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  overflow: hidden;
   min-height: $navbar__height;
-  max-height: $navbar__height;
   background-color: $color__theme__primary--alt-light;
   max-width: 100%;
+  font-size: 2.0rem;
+  position: relative;
 }
 
 .navbar__items {
+  margin: 0 0.8em;
+  padding: 0;
   display: flex;
   flex-direction: row;
-  width: 100%;
+  align-items: center;
+  height: $navbar__height;
+  max-height: $navbar__height;
+  width: auto;
 }
 
 .navbar__logo {
   flex: 1;
-  margin-left: 50%;
+  font-size: 1.5em;
+  color: $color__theme__accent__alt-dark;
 }
 
-.navbar__links {
+a {
   color: $font-color__primary-text__white--dark-background;
   text-decoration: none;
 }

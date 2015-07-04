@@ -4,11 +4,11 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     logger = require('express-logger'),
-    bodyParser = require('body-parser'),
     methodOverride = require('express-method-override'),
     favicon = require('express-favicon'),
 
-    port = 8070,
+
+    port = process.env.PORT || 8070,
 
     app = express(),
     appTitle = 'Realtime Markdown Viewer',
@@ -25,6 +25,7 @@ var express = require('express'),
             'views/partials'
         ]
     });
+
 
 app.set('port', process.env.PORT || port);
 app.engine('.hbs', hbs.engine);
@@ -63,9 +64,9 @@ function exposeTemplate(req, res, next) {
         .catch(next);
 }
 
-//////////////////// Config Middleware  ////////////////////
+////////////////////// Config Middleware  ////////////////////
+
 app.use(logger({ path: 'logs/log.txt' }));      // log every request to the console
-app.use(bodyParser.json({ strict: true }));     // pull information from html in POST
 app.use(methodOverride());              // simulate DELETE and PUT
 app.use(favicon(__dirname + '/public/img/favicon.ico'));
 
@@ -75,24 +76,44 @@ app.use('/public', express.static('public/'));   // serve static files from the 
 
 // Routes!
 app.get('/', function (req, res) {
-    res.render(
-        'pad',
-        {
-            appTitle: appTitle
-        }
-    );
+    res.render('pad', {appTitle: appTitle});
 });
 
-var server = http.createServer(app),
+app.get('/(:id)', function (req, res) {
+    res.render('pad', {appTitle: appTitle});
+});
 
-    boot = function boot() {
-        server.listen(app.get('port'), function () {
+/**
+ * Attach our backend server impelmentation to
+ * a shareJS shareJS instance
+ * @param serverImpl -- our backend server implementation
+ */
+function createShareInstance(serverImpl) {
+    var shareJS = require('share'),
+        shareJSOpts = { db: { type: 'redis'} };
+    require('redis');
+
+    shareJS.server.attach(serverImpl, shareJSOpts);
+}
+
+
+
+////////// Setup server boot functionality ///////////////
+//var server = http.createServer(app),
+
+    var boot = function boot() {
+
+        // Attach the express server to sharejs
+        // NOTE: When running from the command-line. Make sure to also execute "redis-server" in a separate console tab
+        createShareInstance(app);
+
+        app.listen(port, function () {
             console.log('Express server listening on port ' + app.get('port'));
         });
     },
 
     shutdown = function shutdown () {
-        server.close();
+        app.close();
     };
 
 if (require.main === module) {
@@ -101,7 +122,7 @@ if (require.main === module) {
     console.info('Running init.js as a module');
     exports.boot = boot;
     exports.shutdown = shutdown;
-    exports.port = app.get('port');
+    exports.port = port;
 }
 
 

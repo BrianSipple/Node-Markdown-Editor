@@ -19,6 +19,7 @@
         height: 100%;
         flex: 1;
         overflow: auto;
+        text-align: left;
 
         &[class$="--editor"] {
         }
@@ -28,12 +29,21 @@
         }
     }
 
+    .pad-panel__header {
+        font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+    }
+    .pad-panel__content {
+        padding: 0.3em 0.8em;
+    }
+
     .edit-text {
         font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
         resize: none;  /* no messing with our textarea elem size */
         border: none;
         outline: none;
         box-shadow: none;
+        height: 100%;
+        width: 100%;
     }
 
     .preview-text {
