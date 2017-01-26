@@ -22,24 +22,24 @@
   "homepage": "https://github.com/BrianSipple/Node-Markdown-Editor#readme",
   "dependencies": {
     "express": "^4.13.0",
-    "express-favicon": "^1.0.1",
-    "express-handlebars": "^2.0.1",
+    "express-favicon": "^2.0.0",
+    "express-handlebars": "^3.0.0",
     "express-logger": "0.0.3",
     "express-method-override": "0.0.3",
-    "redis": "^0.12.1",
-    "share": "^0.6.3"
+    "redis": "^2.6.5",
+    "share": "^0.7.40"
   },
   "devDependencies": {
-    "autoprefixer-core": "^5.2.1",
+    "autoprefixer-core": "^6.0.1",
     "chai": "^3.0.0",
     "gulp": "^3.9.0",
     "gulp-minify-css": "^1.2.0",
     "gulp-plumber": "^1.0.1",
-    "gulp-postcss": "^5.1.9",
-    "gulp-sass": "^2.0.3",
-    "gulp-sourcemaps": "^1.5.2",
+    "gulp-postcss": "^6.3.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.4.0",
     "gulp-util": "^3.0.6",
-    "mocha": "^2.2.5",
-    "superagent": "^1.2.0"
+    "mocha": "^3.2.0",
+    "superagent": "^3.4.0"
   }
 }
